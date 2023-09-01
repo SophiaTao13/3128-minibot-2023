@@ -35,7 +35,7 @@ public class FeederSubsystem extends SubsystemBase {
 
 	private PWMMotor m_motor = new PWMMotor(k_PWMPin, k_DirPin);
 	private Encoder m_encoder = new Encoder(EncoderType.Quadrature, k_encPin1, k_encPin2);
-
+	private static FeederSubsystem feeder;
 	public FeederSubsystem() {
 		Logger.log("FeederSubsystem", 2, "Constructor");
 	}
@@ -44,7 +44,7 @@ public class FeederSubsystem extends SubsystemBase {
 		Logger.log("FeederSubsystem", 2, "initDefaultCommand()");
 	}
 
-	public void SetPower(double power) {
+	public void setPower(double power) {
 		m_motor.set(power);
 	}
 
@@ -60,4 +60,12 @@ public class FeederSubsystem extends SubsystemBase {
 	public void periodic() {
 		// This method will be called once per scheduler run
 	}
+
+    public static FeederSubsystem getInstance() {
+        if (feeder == null) {
+			feeder = new FeederSubsystem();
+		
+		}
+		return feeder;
+    }
 }

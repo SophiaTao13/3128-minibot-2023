@@ -53,7 +53,7 @@ public class TestFeederCommand extends CommandBase {
 		Logger.log("FeederCommand", 2, "initialize()");
 		
 
-		m_subsystem.SetPower(0.5);
+		m_subsystem.setPower(0.5);
 		m_timer.reset();
 	}
 
@@ -70,14 +70,14 @@ public class TestFeederCommand extends CommandBase {
 		if (m_encoder.getSpeed() > 10 && FeederFoward) {//slowest normal speed in RPM
 			m_timer.reset();
 		} else if (m_timer.get() > 1) {//greatest stall time allowed
-			m_subsystem.SetPower(-0.5);
+			m_subsystem.setPower(-0.5);
 			m_timer.reset();
 			FeederFoward = false;
 		} 
 			
 		
 		if (!FeederFoward && m_timer.get() > 0.5) {//time we want the feeder to reverse
-			m_subsystem.SetPower(0.5);
+			m_subsystem.setPower(0.5);
 			m_timer.reset();
 			FeederFoward = true;
 		}
@@ -94,6 +94,6 @@ public class TestFeederCommand extends CommandBase {
 	public void end(boolean interrupted) {
 		Logger.log("FeederCommand", 2, "end()");
 
-		m_subsystem.SetPower(0);
+		m_subsystem.setPower(0);
 	}
 }

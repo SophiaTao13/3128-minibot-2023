@@ -38,7 +38,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
     private PWMMotor m_motor = new PWMMotor(k_PWMPin, k_DirPin);
     public Encoder m_encoder = new Encoder(EncoderType.Quadrature, k_encoderPin1, k_encoderPin2);
-
+    private static ShooterSubsystem shooter;
     public ShooterSubsystem() {
     }
 
@@ -62,5 +62,13 @@ public class ShooterSubsystem extends SubsystemBase {
 
     public Encoder getEncoder() {
         return (m_encoder.clone());
+    }
+
+    public static ShooterSubsystem getInstance() {
+        if (shooter == null) {
+			shooter = new ShooterSubsystem();
+		
+		}
+		return shooter;
     }
 }

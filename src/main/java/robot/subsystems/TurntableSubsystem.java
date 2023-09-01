@@ -25,6 +25,7 @@ import robotCore.Logger;
 import robotCore.PWMMotor;
 import robotCore.Encoder.EncoderType;
 
+
 /**
  *
  */
@@ -36,7 +37,7 @@ public class TurntableSubsystem extends SubsystemBase {
 
 	private PWMMotor m_motor = new PWMMotor(k_PWMPin, k_DirPin);
 	private Encoder m_encoder = new Encoder(EncoderType.Quadrature, k_encoderIntPin, k_encoderDirPin);
-
+	private static TurntableSubsystem turntable;
 	public TurntableSubsystem() {
 		Logger.log("TurntableSubsystem", 2, "TurntableSubsystem()");
 	}
@@ -45,7 +46,7 @@ public class TurntableSubsystem extends SubsystemBase {
 		Logger.log("TurntableSubsystem", 2, "initDefaultCommand()");
 	}
 
-	public void SetPower(double power) {
+	public void setPower(double power) {
 		m_motor.set(power);
 	}
 
@@ -58,4 +59,12 @@ public class TurntableSubsystem extends SubsystemBase {
 	public void periodic() {
 		Logger.log("TurntableSubsystem", -1, "periodic()");
 	}
+
+    public static TurntableSubsystem getInstance() {
+		if (turntable == null) {
+			turntable = new TurntableSubsystem();
+		
+		}
+		return turntable;
+    }
 }

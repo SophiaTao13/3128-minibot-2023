@@ -48,7 +48,7 @@ public class TurnTurntable extends CommandBase {
         Logger.log("TurnTurntable", 2, "initialize()");
 
         
-        m_subsystem.SetPower(m_power);
+        m_subsystem.setPower(m_power);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -73,6 +73,6 @@ public class TurnTurntable extends CommandBase {
     public void end(boolean interrupted) {
         Logger.log("TurnTurntable", 2, "end()");
 
-        m_subsystem.SetPower(0);
+        m_subsystem.setPower(0);
     }
 }

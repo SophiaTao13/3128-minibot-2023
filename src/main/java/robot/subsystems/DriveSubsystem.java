@@ -42,7 +42,7 @@ public class DriveSubsystem extends SubsystemBase {
   private final PWMMotor m_rightMotor = new PWMMotor(k_rightMotorPWMPin, k_rightMotorDirPin);
   private final Encoder m_rightEncoder = new Encoder(EncoderType.Quadrature, k_rightEncoderIntPin, k_rightEncoderDirPin);
   private final Encoder m_leftEncoder = new Encoder(EncoderType.Quadrature, k_leftEncoderIntPin, k_leftEncoderDirPin);
-
+  private static DriveSubsystem drive;
   /**
    * Creates a new DriveSubsystem.
    */
@@ -70,4 +70,11 @@ public class DriveSubsystem extends SubsystemBase {
   public Encoder GetRightEncoder() {
     return (m_rightEncoder);
   }
+
+public static DriveSubsystem getInstance() {
+  if(drive == null) {
+    drive = new DriveSubsystem();
+  }
+  return drive;
+}
 }
