@@ -49,7 +49,6 @@ import robot.commands.CmdFeedAndShoot;
  * 
  */
 public class RobotContainer {
-  private JoystickButton m_shoot, m_turretLeft, m_turretRight;
   private NAR_Joystick m_joystick;
 
   // The robot's subsystems and commands are defined here...
@@ -63,11 +62,6 @@ public class RobotContainer {
   
 
   private DriveSubsystem m_drive;
-  private NAR_Joystick m_feeder;
-  private NAR_Joystick m_shooter;
-  private NAR_Joystick m_turnLeft;
-  private NAR_Joystick m_turnRight;
-  private NAR_Joystick m_feedAndShoot;
   
 
   /**
@@ -75,10 +69,7 @@ public class RobotContainer {
    */
   public RobotContainer() {
     // TODO create subsystems objects
-    m_turnLeft = new NAR_Joystick(5);
-    m_turnRight = new NAR_Joystick(6);
-    m_joystick = new NAR_Joystick(0);
-    m_feedAndShoot = new NAR_Joystick(1);
+    m_joystick = new NAR_Joystick(22);
     configureButtonBindings();
 
     
@@ -101,9 +92,9 @@ public class RobotContainer {
       // m_joystick.getButton(4).onTrue(new InstantCommand(() -> m_shooter.setPower(0.7))).onFalse(new InstantCommand(() -> m_shooter.setPower(0)));
       // m_joystick.getButton(5).onTrue(new InstantCommand(() -> m_turntable.setPower(0.7))).onFalse(new InstantCommand(() -> m_turntable.setPower(0)));
       // m_joystick.getButton(6).onTrue(new InstantCommand(() -> m_turntable.setPower(-0.7))).onFalse(new InstantCommand(() -> m_turntable.setPower(0)));
-      m_feedAndShoot.getButton(1).onTrue(new CmdFeedAndShoot(-0.6, 0.6));
-      m_turnLeft.getButton(5).onTrue(new CmdTurntable(-0.7));
-      m_turnRight.getButton(6).onTrue(new CmdTurntable(0.7));
+      m_joystick.getButton(1).onTrue(new CmdFeedAndShoot(-0.6, 0.6)).onFalse(new CmdFeedAndShoot(0, 0));
+      m_joystick.getButton(5).onTrue(new CmdTurntable(-0.7)).onFalse(new CmdTurntable(0));
+      m_joystick.getButton(6).onTrue(new CmdTurntable(0.7)).onFalse(new CmdTurntable(0));
 
   }
 

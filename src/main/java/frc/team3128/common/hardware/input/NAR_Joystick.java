@@ -20,10 +20,10 @@ public class NAR_Joystick {
      */
     private final Trigger[] povButtons;
 
-    private double xDeadband = 0.05;
+    private double xDeadband = 0.05; //joystick doesn't register unless you push the joystick beyond 0.05
     private double yDeadband = 0.05;
     private double zDeadband = 0.05;
-    private double throttleLowerBound = 0.3;
+    private double throttleLowerBound = 0.3; //the thing that increases the speed. not used anymore
     private double throttleUpperBound = 0.8;
 
     /**

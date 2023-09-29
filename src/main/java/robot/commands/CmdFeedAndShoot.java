@@ -1,27 +1,31 @@
 package robot.commands;
 
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
-import robot.subsystems.DriveSubsystem;
 import robot.subsystems.FeederSubsystem;
 import robot.subsystems.ShooterSubsystem;
 
-public class CmdFeedAndShoot extends ParallelCommandGroup {
+//command which commands feeder and shooter to run at the same time. parallel command group
 
-    private final ShooterSubsystem m_shooter;
-    private final FeederSubsystem m_feeder;
-  
+public class CmdFeedAndShoot extends ParallelCommandGroup{
+    private ShooterSubsystem shooter;
+    private FeederSubsystem feeder;
     
-    public CmdFeedAndShoot(double shooter, double feeder) {
-       { //parameters used for calling the commands later
-            m_shooter = ShooterSubsystem.getInstance();
-            m_feeder =FeederSubsystem.getInstance();
-    
-            addCommands(
-                new CmdFeeder(feeder),
-                new CmdShooter(shooter)
+    public CmdFeedAndShoot(double feederPower, double shooterPower) { //parameters used for calling the commands later
+        shooter = ShooterSubsystem.getInstance();
+        feeder =FeederSubsystem.getInstance();
+
+        addCommands(
+            new CmdFeeder(feederPower),
+            new CmdShooter(shooterPower)
         );
-    }
+        
     }
 
-    }
+    //no need for end because it contains commands which has end
+  
+
+    
+}
+
 

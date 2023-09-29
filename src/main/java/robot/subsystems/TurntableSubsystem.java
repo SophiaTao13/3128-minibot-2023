@@ -19,25 +19,22 @@
 package robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robotCore.Device;
 import robotCore.Encoder;
 import robotCore.Logger;
 import robotCore.PWMMotor;
 import robotCore.Encoder.EncoderType;
-
+import static robot.Constants.TurnTableConstants.*;
 
 /**
  *
  */
 public class TurntableSubsystem extends SubsystemBase {
-	private static final int k_PWMPin = Device.M3_1_PWM;
-	private static final int k_DirPin = Device.M3_1_DIR;
-	private static final int k_encoderIntPin = Device.Q3_INT;
-	private static final int k_encoderDirPin = Device.Q3_DIR;
-
-	private PWMMotor m_motor = new PWMMotor(k_PWMPin, k_DirPin);
-	private Encoder m_encoder = new Encoder(EncoderType.Quadrature, k_encoderIntPin, k_encoderDirPin);
 	private static TurntableSubsystem turntable;
+
+	// TODO you know what to do
+	//create objects
+	private final PWMMotor turntableMotor = new PWMMotor(k_PWMPin, k_DirPin);
+	private final Encoder turntableEncoder = new Encoder(EncoderType.Quadrature, k_encoderDirPin, k_encoderIntPin );
 	public TurntableSubsystem() {
 		Logger.log("TurntableSubsystem", 2, "TurntableSubsystem()");
 	}
@@ -46,25 +43,30 @@ public class TurntableSubsystem extends SubsystemBase {
 		Logger.log("TurntableSubsystem", 2, "initDefaultCommand()");
 	}
 
-	public void setPower(double power) {
-		m_motor.set(power);
-	}
-
-	public Encoder getEncoder()
-	{
-		return m_encoder;
-	}
-
-	@Override
-	public void periodic() {
-		Logger.log("TurntableSubsystem", -1, "periodic()");
-	}
-
-    public static TurntableSubsystem getInstance() {
+	public static TurntableSubsystem getInstance() { //get instances for use later
 		if (turntable == null) {
 			turntable = new TurntableSubsystem();
 		
 		}
 		return turntable;
-    }
+	}
+
+	//set motor power and get encoder
+	public void setTurntablePower(double power) {
+		turntableMotor.set(power);
+	}
+
+	public int getTurntableEncoder() {
+		return (turntableEncoder.get());
+	}
+
+
+	@Override
+	public void periodic() {
+		Logger.log("TurntableSubsystem", -1, "periodic()");
+
+	}
+
+	public void setPower(double power) {
+	}
 }

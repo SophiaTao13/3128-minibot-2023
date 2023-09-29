@@ -11,19 +11,15 @@ public class CmdFeeder extends CommandBase {
  
     private double power;
     private double speed;
-    public CmdFeeder(double feederPower) {
+    public CmdFeeder(double power) {
        m_feeder = FeederSubsystem.getInstance();
-       
-      
-    
-
-       this.power = feederPower;
+       this.power = power;
        addRequirements(m_feeder);
     }
 
     @Override
     public void initialize() {
-        m_feeder.setPower(power);
+        m_feeder.setMotorPower(power);
         
       
 
@@ -38,9 +34,9 @@ public class CmdFeeder extends CommandBase {
         speed = m_feeder.getSpeed();
 
         if(speed == 0) {
-            m_feeder.setPower(-power);
+            m_feeder.setMotorPower(-power);
             Timer.delay(0.5);
-            m_feeder.setPower(power);
+            m_feeder.setMotorPower(power);
         }
 
     }
@@ -52,7 +48,7 @@ public class CmdFeeder extends CommandBase {
 
     @Override
     public void end(boolean interrupted) { //setting power to 0
-        m_feeder.setPower(0);
+        m_feeder.setMotorPower(0);
 
     
 

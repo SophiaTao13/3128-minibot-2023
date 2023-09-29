@@ -18,24 +18,26 @@
 package robot.subsystems;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import robotCore.Device;
 import robotCore.Encoder;
 import robotCore.Encoder.EncoderType;
 import robotCore.Logger;
 import robotCore.PWMMotor;
+import static robot.Constants.FeederConstants.*;
+
 
 /**
  *
  */
 public class FeederSubsystem extends SubsystemBase {
-	private static final int k_PWMPin = Device.M2_1_PWM;
-	private static final int k_DirPin = Device.M2_1_DIR;
-	private static final int k_encPin1 = Device.Q4_INT;
-	private static final int k_encPin2 = -1;
-
-	private PWMMotor m_motor = new PWMMotor(k_PWMPin, k_DirPin);
-	private Encoder m_encoder = new Encoder(EncoderType.Quadrature, k_encPin1, k_encPin2);
 	private static FeederSubsystem feeder;
+	private static double speed;
+	
+
+	// TODO create motor and encoder objects
+	private final PWMMotor feederMotor = new PWMMotor(k_PWMPin, k_DirPin);
+	private final Encoder feederEncoder = new Encoder(EncoderType.Quadrature, k_encPin1, k_encPin2 );
+
+
 	public FeederSubsystem() {
 		Logger.log("FeederSubsystem", 2, "Constructor");
 	}
@@ -44,28 +46,35 @@ public class FeederSubsystem extends SubsystemBase {
 		Logger.log("FeederSubsystem", 2, "initDefaultCommand()");
 	}
 
-	public void setPower(double power) {
-		m_motor.set(power);
+	public static FeederSubsystem getInstance() { //get instances for use later
+		if(feeder == null) {
+		  feeder = new FeederSubsystem();
+		}
+		return feeder;
+	  }
+
+	// TODO Create methods to set motor power and get encoder
+	public void setMotorPower(double power) {
+		feederMotor.set(power);
 	}
 
-	public Encoder getEncoder() {
-		return (m_encoder.clone());
+	public int getFeederEncoder() {
+		return (feederEncoder.get());
 	}
 
-	public int getSpeed() {
-		return (m_encoder.getSpeed());
+	public double getSpeed() {
+       speed = feederEncoder.getSpeed();
+	   return speed;
+    }
+
+	public boolean isJammed() {
+		return getSpeed() == 0;
 	}
+
+	
 
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run
 	}
-
-    public static FeederSubsystem getInstance() {
-        if (feeder == null) {
-			feeder = new FeederSubsystem();
-		
-		}
-		return feeder;
-    }
 }
